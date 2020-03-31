@@ -1,4 +1,4 @@
-package com.hinkmond.finalproj;
+package com.trupti.eventplanner;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -13,7 +13,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import javax.sql.DataSource;
 
 @SpringBootApplication
-public class JDBCApplication extends SpringBootServletInitializer {
+public class EventplannerApplication extends SpringBootServletInitializer {
     private static final String KEYFILEPATH = "./keyFile.key";
 
     /*
@@ -50,11 +50,11 @@ public class JDBCApplication extends SpringBootServletInitializer {
 
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-        return application.sources(JDBCApplication.class);
+        return application.sources(EventplannerApplication.class);
     }
 
     // Main method
     public static void main(String... args) {
-        SpringApplication.run(JDBCApplication.class, args);
+        SpringApplication.run(EventplannerApplication.class, args);
     }
 }

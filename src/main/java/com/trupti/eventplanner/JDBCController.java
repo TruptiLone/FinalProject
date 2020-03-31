@@ -1,4 +1,4 @@
-package com.hinkmond.finalproj;
+package com.trupti.eventplanner;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
