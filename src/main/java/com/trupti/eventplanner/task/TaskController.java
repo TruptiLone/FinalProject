@@ -1,5 +1,6 @@
 package com.trupti.eventplanner.task;
 
+import com.trupti.eventplanner.GoogleCalendarEvent.CalendarService;
 import com.trupti.eventplanner.JDBCConnector;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -11,10 +12,13 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.net.URI;
+import java.security.GeneralSecurityException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.text.ParseException;
 
 
 @RestController
@@ -131,29 +135,37 @@ import java.sql.SQLException;
             return ("Rows updated: " + rowsUpdated);
         }
 
- //   @CrossOrigin
-//    @RequestMapping(value = "/createCalenderEvent/{id}", method = RequestMethod.DELETE)
-//    public String createCalenderEvent(@PathVariable Integer id) {
-//
-//        JdbcTemplate jdbcTemplate = JDBCConnector.getJdbcTemplate();
-//        String queryStr = "SELECT FROM task_info WHERE task_id = ?";
-//
-//        SqlRowSet sqlRowSet = jdbcTemplate.queryForRowSet(queryStr, id);
-//        String task_name;
-//        String task_date;
-//        if (sqlRowSet.next()) {
-//            task_name = sqlRowSet.getString("task_name");
-//            task_date = sqlRowSet.getString("Task_date");
-//
-//        } else {
-//            throw new TaskNotFoundException("Invalid input for Task Id");
-//        }
-//
-//
-//
-//
-//        return "";
-//    }
+    @CrossOrigin
+    @RequestMapping(value = "/createCalenderEvent/{id}", method = RequestMethod.POST)
+    public String createCalenderEvent(@PathVariable Integer id) {
+
+        JdbcTemplate jdbcTemplate = JDBCConnector.getJdbcTemplate();
+        String queryStr = "select * from task_info where task_id = ?";
+
+        SqlRowSet sqlRowSet = jdbcTemplate.queryForRowSet(queryStr, id);
+        String task_name;
+        String task_date;
+        if (sqlRowSet.next()) {
+            task_name = sqlRowSet.getString("task_name");
+            task_date = sqlRowSet.getString("Task_date");
+
+        } else {
+            throw new TaskNotFoundException("Invalid input for Task Id");
+        }
+        try {
+            CalendarService calendarService = new CalendarService();
+            calendarService.createEvent(task_name,task_date);
+        } catch (GeneralSecurityException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+
+        return "Event created in Google Calendarr";
+    }
 
 
 
