@@ -228,5 +228,51 @@
 * **Sample Call:**
 
        Url: curl -X POST --data"http://localhost:8080/deleteTask/8"
+ 
+ 
+ 
+
+**Title**
+----
+  Create Event in Google Calendar
+
+* **URL**
+
+  /createCalenderEvent/:id
+
+* **Method:**
+
+  `POST`
+  
+*  **URL Params**
+
+   **Required:**
+ 
+   `task_id=[Integer]`
+
+   **Optional:**
+ 
+   `photo_id=[alphanumeric]`
+
+* **Data Params**
+    
+    `createCalenderEvent/{id}`
+  
+* **Success Response:**
+  
+
+  * **Code:** 200 <br />
+    **Content:** Event created in Google Calendar
+ 
+* **Error Response:**
+
+  * **Code:** 400 NOT FOUND <br />
+    **Content:** `{"timestamp": "2020-03-29T20:30:06.268+0000",
+                 `"details": "Invalid input for Task Id",
+                  `"message": "uri=/createCalendarEvent/800"}`
+
+* **Sample Call:**
+
+       Url: curl -X POST --data"http://localhost:8080/deleteTask/8"
     
 
